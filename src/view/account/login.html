@@ -1,0 +1,8 @@
+{% list_errors errors=errors %}
+
+<form method="post">
+Email address: <input name="email" 
+    value="{% if email %}{{ email }}{% endif %}"><br>
+Password: <input name="password" type="password"><br><input type="submit">
+</form>
+<a href="{% url action="create" %}">Create an account</a>

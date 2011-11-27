@@ -1,0 +1,7 @@
+{% if errors %}
+<ul>
+    {% for error in errors %}
+    <li><font color=red>{{ error }}</font>
+    {% endfor %}
+</ul>
+{% endif %}

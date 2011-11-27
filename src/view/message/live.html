@@ -1,0 +1,29 @@
+<html><head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <script>
+    function listen_for_events(timestamp) {
+       $.ajax("/message/pull/"+timestamp, { success:
+          function(data, code, xhr) {
+            for (var i=0; i<data.messages.length; i++) {
+               var msg = data.messages[i].message_contents;
+               $("#msg_list").append("<li>"+msg);
+            }
+            listen_for_events(data.timestamp);
+         } });
+    }
+    $(document).ready(function() {
+      listen_for_events({{ timestamp }});
+    });
+  </script>
+  </head>
+  <body>
+  Live messages:
+    <ul id="msg_list">
+      {% for msg in messages %}
+        <li>{{ msg.message_contents }}
+      {% empty %}
+        <li>No messages!
+      {% endfor %}
+    </ul>
+  </body>
+</html>
