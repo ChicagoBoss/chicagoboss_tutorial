@@ -2,11 +2,11 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
   <script>
     function listen_for_events(timestamp) {
-       $.ajax("/message/pull/"+timestamp, { success:
+       $.ajax("/greeting/pull/"+timestamp, { success:
           function(data, code, xhr) {
-            for (var i=0; i<data.messages.length; i++) {
-               var msg = data.messages[i].message_contents;
-               $("#msg_list").append("<li>"+msg);
+            for (var i=0; i<data.greetings.length; i++) {
+               var msg = data.greetings[i].greeting_text;
+               $("#greeting_list").append("<li>"+msg);
             }
             listen_for_events(data.timestamp);
          } });
@@ -17,12 +17,11 @@
   </script>
   </head>
   <body>
-  Live messages:
-    <ul id="msg_list">
-      {% for msg in messages %}
-        <li>{{ msg.message_contents }}
+    <ul id="greeting_list">
+      {% for greeting in greetings %}
+        <li>{{ greeting.greeting_text }}
       {% empty %}
-        <li>No messages!
+        <li>No greetings!
       {% endfor %}
     </ul>
   </body>

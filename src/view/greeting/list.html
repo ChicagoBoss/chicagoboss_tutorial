@@ -1,0 +1,23 @@
+<ul>
+{% if greetings %}
+{% for greeting in greetings %}
+<li>{{ greeting.greeting_text }}
+{% endfor %}
+{% else %}
+<li>No greetings!
+{% endif %}
+</ul>
+
+<p><a href="{% url action="create" %}">Create a new greeting...</a></p>
+
+{% if is_me %}
+<form method="post" action="{% url action="goodbye" %}">
+    Delete:
+<select name="greeting_id">
+{% for greeting in greetings %}
+<option value="{{ greeting.id }}">{{ greeting.greeting_text }}
+{% endfor %}
+</select>
+<input type="submit">
+</form>
+{% endif %}

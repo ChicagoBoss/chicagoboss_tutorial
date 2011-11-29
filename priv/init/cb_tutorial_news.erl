@@ -6,16 +6,7 @@
 % return a list of WatchIDs that should be cancelled if the
 % script is ever reloaded (for example, via the admin application).
 init() ->
-    {ok, WatchId} = boss_news:watch("messages",
-        fun(created, NewMessage) ->
-                error_logger:info_msg("New message! ~p~n", 
-                    [NewMessage:message_contents()]),
-                boss_mq:push("new-messages", NewMessage);
-            (deleted, OldMessage) ->
-                error_logger:info_msg("Message go poof! ~p~n",
-                    [OldMessage:message_contents()])
-        end),
-    {ok, [WatchId]}.
+    {ok, []}.
 
 %%%%%%%%%%% Ideas
 %    boss_news:watch("user-42.*",
