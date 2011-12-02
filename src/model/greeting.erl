@@ -12,3 +12,6 @@ before_create() ->
         re:replace(GreetingText, "masticate", "chew",
             [{return, list}])),
     {ok, NewRecord}.
+
+%after_create() ->
+%    boss_mq:push("new-greetings", THIS).
