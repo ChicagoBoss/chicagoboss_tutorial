@@ -1,6 +1,6 @@
--module(cb_tutorial_news).
+-module(cb_tutorial_01_news).
 
--export([init/0]).
+-export([init/0, stop/1]).
 
 % This script is first executed at server startup and should
 % return a list of WatchIDs that should be cancelled if the
@@ -14,6 +14,9 @@ init() ->
                 boss_mq:push("old-greetings", OldGreeting)
         end),
     {ok, [WatchId]}.
+
+stop(ListOfWatchIDs) ->
+    lists:map(fun boss_news:cancel_watch/1, ListOfWatchIDs).
 
 %%%%%%%%%%% Ideas
 %    boss_news:watch("user-42.*",
